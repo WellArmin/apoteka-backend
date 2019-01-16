@@ -1,0 +1,53 @@
+# import * from './generated/prisma.graphql'
+type SuccessMessage{
+    message: String
+}
+
+type Mutation{
+    createItem(title: String, slug:String!, description: String, shortDescription: String, price: Int, priceAction: Int, category: String, subCategory: String, brand: String, image: String, productAction: String, actionPercent: Int, productOffer: String, sliderImage1: String, sliderImage2: String, sliderImage3: String, sliderImage4: String, titleSeo: String, descriptionSeo: String): Item!
+    updateItem(id: ID!, title: String, description: String, shortDescription: String, price: Int, priceAction: Int, category: String, subCategory: String, brand: String, image: String, actionPercent: Int, productAction: String, productOffer: String, sliderImage1: String, sliderImage2: String, sliderImage3: String, sliderImage4: String, titleSeo: String, descriptionSeo: String): Item!
+    deleteItem(id: ID!): Item
+    signup(email: String!, password: String!, name: String!): User!
+    signin(email: String!, password: String!): User!
+    signout: SuccessMessage
+    requestReset(email: String!): SuccessMessage
+    resetPassword(resetToken: String!, password: String!, confirmPassword: String!): User!
+    updatePermissions(permissions: [Permission], userId: ID!): User
+    addToCart(id: ID!): CartItem
+    removeFromCart(id: ID!): CartItem
+    #createOrder(token: String!): Order!
+    createOrder(name: String, surname: String!, email: String!,phone: String!, address: String!, postalCode: String!, city: String!, country: String!, totalNoShipping: Int, shipping: Int, total: Int, charge: String, orderCreatedAt: String, items: String!): Order!
+    createCategory(name: String!, image: String, slug: String!,positionNumber: Int, ShowInMainMenu: String, parentCategory: String): Category!
+    updateCategory(id: ID!, name: String, image: String, slug: String, positionNumber: Int, ShowInMainMenu: String, parentCategory: String): Category!
+    deleteCategory(id: ID!): Category
+    createIntroSlider(image: String!, link: String!): IntroSlider!
+    updateIntroSlider(id: ID!, image: String, link: String): IntroSlider!
+    deleteIntroSlider(id: ID!): IntroSlider
+    updateSettings(id: ID!, key: String, value: String): Settings!
+}
+
+type Query{
+    items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, first: Int): [Item]!
+    item(where: ItemWhereUniqueInput!): Item
+    itemsConnection(where: ItemWhereInput): ItemConnection!
+    me: User
+    users: [User]!
+   #order(id: ID!): Order
+    #orders(orderBy: OrderOrderByInput): [Order]!
+    categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, first: Int): [Category]!
+    category(where: CategoryWhereUniqueInput!): Category
+    introSliders(where: IntroSliderWhereInput, orderBy: IntroSliderOrderByInput, skip: Int, first: Int): [IntroSlider]!
+    introSlider(where: IntroSliderWhereUniqueInput!): IntroSlider
+    settingses(where: SettingsWhereInput, orderBy: SettingsOrderByInput, skip: Int, first: Int ): [Settings]!
+    orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, first: Int): [Order]!
+    order(where: OrderWhereUniqueInput!): Order
+}
+
+type User{
+   id: ID!
+   name: String!
+   email: String!
+   permissions: [Permission!]! 
+   cart: [CartItem!]!
+   orders: [OrderItem]
+}

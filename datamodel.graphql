@@ -1,0 +1,116 @@
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission]
+  cart: [CartItem!]!
+}
+
+type Item{
+  id: ID! @unique
+  title: String!
+  slug: String! @unique
+  shortDescription: String
+  description: String!
+  image: String
+  sliderImage1: String
+  sliderImage2: String
+  sliderImage3: String
+  sliderImage4: String
+  price: Int!
+  priceAction: Int
+  actionPercent: Int
+  category: String!
+  subCategory: String
+  brand: String
+  productAction: String
+  productOffer: String
+  titleSeo: String
+  descriptionSeo: String
+  user: User!
+}
+
+type CartItem {
+  id: ID! @unique
+  quantity: Int! @default(value: 1)
+  item: Item
+  user: User!
+}
+
+type OrderItem {
+  id: ID! @unique
+  title: String!
+  category: String!
+  description: String!
+  image: String!
+  price: Int!
+  quantity: Int! @default(value: 1)
+}
+
+type Order {
+  id: ID! @unique
+  name: String!
+  surname: String!
+  email: String!
+  phone: String!
+  address: String!
+  postalCode: String!
+  city: String!
+  country: String!
+  totalNoShipping: Int
+  shipping: Int
+  total: Int
+  charge: String
+  orderCreatedAt: String
+  items: String!
+}
+
+type Category{
+  id: ID! @unique
+  name: String!
+  image: String
+  slug: String! @unique
+  positionNumber: Int
+  ShowInMainMenu: String
+  parentCategory: String
+  user: User!
+}
+
+type IntroSlider{
+  id: ID! @unique
+  image: String!
+  link: String!
+  user: User!
+}
+
+type WeekOffer{
+  curStartWeek: String
+  curEndWeek: String
+  curOfferWeek: Int
+  nextStartWeek: String
+  nextEndWeek: String
+  nextOfferWeek: Int
+}
+
+type PageSettings{
+  key: String! @unique
+  value: String
+}
+
+type Settings{
+  id: ID! @unique
+  key: String
+  value: String
+}
